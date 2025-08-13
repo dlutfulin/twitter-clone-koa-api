@@ -22,6 +22,7 @@ git clone https://github.com/dlutfulin/twitter-clone-koa-api.git
 
 ```bash
 npm i
+npm run db:push
 ```
 
 **3. Set Credentials as Env Vars**
@@ -33,3 +34,4 @@ See above or the `.env` file for required env vars.
 ```bash
 npm run dev
 ```
+
