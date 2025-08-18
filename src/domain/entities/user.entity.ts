@@ -1,5 +1,6 @@
-import { UserEmail } from "./value-objects/user-email.vo";
-import { Username } from "./value-objects/username.vo";
+import { UserEmail } from "../../services/user/value-objects/user.email.vo";
+import { Username } from "../../services/user/value-objects/username.vo";
+import { CreateUserProps } from "../types/user.types";
 
 export class User {
   constructor(
@@ -12,11 +13,7 @@ export class User {
     public readonly updatedAt: Date
   ) {}
 
-  static create(props: {
-    email: string;
-    username: string;
-    passwordHash: string;
-  }): User {
+  static create(props: CreateUserProps): User {
     UserEmail.validate(props.email);
     Username.validate(props.username);
 

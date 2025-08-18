@@ -1,8 +1,8 @@
-import { getDb } from "../../../shared/infrastructure/drizzle-orm";
-import { users } from "../../../shared/infrastructure/schema";
-import { IUserRepository } from "../domain/user.repository";
-import { User } from "../domain/user.entity";
 import { eq } from "drizzle-orm";
+import { IUserRepository } from "./user.repository";
+import { getDb } from "../../shared/drizzle-orm";
+import { users } from "../../shared/schema";
+import { User } from "../../domain/entities/user.entity";
 
 export class UserRepositoryImpl implements IUserRepository {
   async findByEmail(email: string): Promise<User | null> {
@@ -12,7 +12,9 @@ export class UserRepositoryImpl implements IUserRepository {
       .from(users)
       .where(eq(users.email, email))
       .limit(1);
+
     if (!record.length) return null;
+
     const row = record[0];
     return new User(
       row.id,
@@ -33,7 +35,9 @@ export class UserRepositoryImpl implements IUserRepository {
       .where(eq(users.username, username))
       .limit(1);
     if (!record.length) return null;
+
     const row = record[0];
+
     return new User(
       row.id,
       row.email,
@@ -70,7 +74,9 @@ export class UserRepositoryImpl implements IUserRepository {
     if (user.id == null) {
       throw new Error("Cannot update user without id");
     }
+
     const db = await getDb();
+
     const [row] = await db
       .update(users)
       .set({
@@ -140,6 +146,7 @@ export class UserRepositoryImpl implements IUserRepository {
     if (!record.length) throw new Error("User does not exist");
 
     const row = record[0];
+
     return new User(
       row.id,
       row.email,

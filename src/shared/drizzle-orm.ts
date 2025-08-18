@@ -1,17 +1,15 @@
-import { drizzle } from 'drizzle-orm/node-postgres';
-import { Pool } from 'pg';
-import * as schema from './schema';
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
+import * as schema from "./schema";
 
 let db: ReturnType<typeof drizzle> | null = null;
 let pool: Pool | null = null;
-
-
 
 export async function getDb() {
   if (db) return db;
 
   if (!process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL environment variable is not set');
+    throw new Error("DATABASE_URL environment variable is not set");
   }
 
   pool = new Pool({
@@ -23,11 +21,11 @@ export async function getDb() {
 
   try {
     const client = await pool.connect();
-    await client.query('SELECT 1');
+    await client.query("SELECT 1");
     client.release();
-    console.log('Connected to Postgres');
+    console.log("Connected to Postgres");
   } catch (err) {
-    console.error('Failed to connect to Postgres', err);
+    console.error("Failed to connect to Postgres", err);
     process.exit(1);
   }
 
@@ -42,9 +40,9 @@ export async function closeConnection() {
     await pool.end();
     pool = null;
     db = null;
-    console.log('Database connection closed');
+    console.log("Database connection closed");
   }
 }
 
-process.on('SIGINT', closeConnection);
-process.on('SIGTERM', closeConnection);
+process.on("SIGINT", closeConnection);
+process.on("SIGTERM", closeConnection);
