@@ -27,3 +27,17 @@ export const refreshTokens = pgTable("refresh_tokens", {
   created_at: timestamp().defaultNow().notNull(),
   updated_at: timestamp().defaultNow().notNull(),
 });
+
+export const posts = pgTable("posts", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  user_id: integer()
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  content: varchar({ length: 280 }).notNull(),
+  media_url: varchar({ length: 500 }),
+  likes_count: integer().default(0).notNull(),
+  retweets_count: integer().default(0).notNull(),
+  comments_count: integer().default(0).notNull(),
+  created_at: timestamp().defaultNow().notNull(),
+  updated_at: timestamp().defaultNow().notNull(),
+});

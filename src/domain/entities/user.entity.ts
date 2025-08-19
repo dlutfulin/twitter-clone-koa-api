@@ -1,4 +1,3 @@
-import { UserEmail } from "../../services/user/value-objects/user.email.vo";
 import { Username } from "../../services/user/value-objects/username.vo";
 import { CreateUserProps } from "../types/user.types";
 
@@ -14,7 +13,7 @@ export class User {
   ) {}
 
   static create(props: CreateUserProps): User {
-    UserEmail.validate(props.email);
+    // UserEmail.validate(props.email);
     Username.validate(props.username);
 
     const now = new Date();
