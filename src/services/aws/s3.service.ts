@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { PutObjectCommand, DeleteObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { s3Client, AWS_CONFIG } from "../../shared/aws/aws.config";
@@ -32,7 +34,9 @@ export class S3Service {
   ): Promise<UploadResult> {
     try {
       const key = this.generateUniqueKey(originalName, folder);
-      
+      console.log("Bucket:", AWS_CONFIG.S3_BUCKET);
+console.log("Region:", AWS_CONFIG.REGION);
+console.log("File Key:", key);
       const command = new PutObjectCommand({
         Bucket: AWS_CONFIG.S3_BUCKET,
         Key: key,

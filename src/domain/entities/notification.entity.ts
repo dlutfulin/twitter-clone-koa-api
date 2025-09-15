@@ -3,10 +3,10 @@ export type NotificationType = "like" | "comment" | "follow" | "retweet";
 export class Notification {
   constructor(
     public readonly id: number | null,
-    public readonly type: NotificationType,
+    public readonly type: any,
     public readonly userId: number,
     public readonly actorId: number,
-    public readonly postId: number | null,
+    public readonly postId: any,
     public readonly message: string,
     public readonly isRead: boolean,
     public readonly createdAt: Date

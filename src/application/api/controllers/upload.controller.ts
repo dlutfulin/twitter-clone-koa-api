@@ -12,17 +12,25 @@ export class UploadController {
 
   async uploadAvatar(ctx: Context) {
     try {
+      console.log(
+        "S3_BUCKET:",
+        process.env.AWS_S3_BUCKET ? process.env.AWS_S3_BUCKET : "undefined"
+      );
       const userId = ctx.state.user.id;
       const file = ctx.request.file;
+
+      
 
       if (!file) {
         ctx.status = 400;
         ctx.body = { error: "No file provided" };
         return;
       }
-
+            console.log("UserId:", userId);
+console.log("File:", file.originalname, file.mimetype, file.size);
       this.s3Service.validateImageFile(file.mimetype, file.size);
-
+            console.log("UserId:", userId);
+console.log("File:", file.originalname, file.mimetype, file.size);
       const uploadResult = await this.s3Service.uploadAvatar(
         file.buffer,
         file.originalname,
@@ -30,20 +38,27 @@ export class UploadController {
         userId
       );
 
+            console.log("UserId:", userId);
+console.log("File:", file.originalname, file.mimetype, file.size);
+
       await this.userService.updateUserAvatar(
         userId,
         uploadResult.url,
         uploadResult.key
       );
+                  console.log("UserId:", userId);
+console.log("File:", file.originalname, file.mimetype, file.size);
 
       ctx.status = 200;
       ctx.body = {
         message: "Avatar uploaded successfully",
-        avatarUrl: uploadResult.url,
+        avatar_url: uploadResult.url,
       };
     } catch (error: any) {
+
       ctx.status = 400;
       ctx.body = {
+        
         error: error.message || "Failed to upload avatar",
       };
     }

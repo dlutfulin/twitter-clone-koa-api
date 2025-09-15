@@ -79,6 +79,29 @@ export class UserService {
     return this.toUserResponse(savedUser);
   }
 
+  async updateUserAvatar(
+    id: string,
+    avatar_url: string,
+    avatar_s3_key: string
+  ): Promise<UserResponse> {
+    const user = await this.userRepository.findById(id);
+
+    const updatedUser = new User(
+      user.id,
+      user.email,
+      user.username,
+      user.passwordHash,
+      user.isActive,
+      user.createdAt,
+      new Date(),
+      avatar_url,
+      avatar_s3_key
+    );
+
+    const savedUser = await this.userRepository.update(updatedUser);
+    return this.toUserResponse(savedUser);
+  }
+
   private toUserResponse(user: User): UserResponse {
     return {
       id: user.id!,
@@ -87,6 +110,8 @@ export class UserService {
       isActive: user.isActive!,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
+      avatarUrl: user.avatarUrl || undefined,
+      avatarS3Key: user.avatarS3Key || undefined,
     };
   }
 }

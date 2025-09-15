@@ -94,7 +94,7 @@ export class User {
     return this.username === username.toLowerCase();
   }
 
-    updateAvatar(avatarUrl: string, avatarS3Key: string): User {
+    updateAvatar(avatar_url: string, avatar_s3_key: string): User {
     return new User(
       this.id,
       this.email,
@@ -103,8 +103,8 @@ export class User {
       this.isActive,
       this.createdAt,
       new Date(),
-      avatarUrl,
-      avatarS3Key
+      avatar_url,
+      avatar_s3_key
     );
   }
 
@@ -115,9 +115,10 @@ export class User {
       email: this.email,
       username: this.username,
       isActive: this.isActive,
-      avatarUrl: this.avatarUrl,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      avatarUrl: this.avatarUrl,
+      avatarS3Key: this.avatarS3Key
     };
   }
 }
