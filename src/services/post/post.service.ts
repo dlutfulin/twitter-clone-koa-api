@@ -24,6 +24,28 @@ export class PostService {
     return this.toPostResponse(savedPost, user, false, false);
   }
 
+  async getPost(postId: number, currentUserId?: number): Promise<PostResponse> {
+    const post = await this.postRepository.findById(postId);
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    const user = await this.userRepository.findById(post.userId.toString());
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // const isLikedByCurrentUser = currentUserId
+    //   ? !!(await this.postRepository.isPostLikedByUser(postId, currentUserId))
+    //   : false;
+
+    // const isRetweetedByCurrentUser = currentUserId
+    //   ? !!(await this.postRepository.isPostRetweetedByUser(postId, currentUserId))
+    //   : false;
+
+    return this.toPostResponse(post, user, false, false);
+  }
+
   private toPostResponse(post: Post, user: any, isLikedByCurrentUser: boolean, isRetweetedByCurrentUser: boolean): PostResponse {
     return {
       id: post.id!,
