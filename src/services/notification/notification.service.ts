@@ -16,10 +16,8 @@ export class NotificationService {
     postId: number,
     likerUsername: string
   ): Promise<void> {
-    // Не отправляем уведомление самому себе
     if (postOwnerId === likerId) return;
 
-    // Создаем уведомление в базе
     const notification = Notification.createLikeNotification(
       postOwnerId,
       likerId,
@@ -29,7 +27,6 @@ export class NotificationService {
 
     await this.notificationRepository.save(notification);
 
-    // Отправляем через SNS (асинхронно, не блокируем основной поток)
     this.snsService.sendLikeNotification(likerId, postOwnerId, postId, likerUsername)
       .catch(error => console.error("Failed to send SNS notification:", error));
   }

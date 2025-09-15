@@ -1,4 +1,3 @@
-// src/shared/middleware/upload.middleware.ts
 import multer from "multer";
 import { Context, Next } from "koa";
 
@@ -9,7 +8,6 @@ const upload = multer({
     files: 1,
   },
   fileFilter: (req, file, cb) => {
-    // Разрешенные типы файлов
     const allowedMimeTypes = [
       "image/jpeg",
       "image/png", 
