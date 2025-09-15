@@ -22,6 +22,27 @@
       "when": 1757932951241,
       "tag": "0002_married_galactus",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1757935535589,
+      "tag": "0003_slow_dracula",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1757938142906,
+      "tag": "0004_dazzling_harpoon",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1757938317135,
+      "tag": "0005_flat_bloodstrike",
+      "breakpoints": true
     }
   ]
 }

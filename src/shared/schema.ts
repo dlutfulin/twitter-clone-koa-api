@@ -43,5 +43,56 @@ export const posts = pgTable("posts", {
   created_at: timestamp().defaultNow().notNull(),
   updated_at: timestamp().defaultNow().notNull(),
   mediaS3Key: varchar("media_s3_key", { length: 500 }),
-
 });
+
+export const likes = pgTable("likes", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  user_id: integer()
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  post_id: integer()
+    .notNull()
+    .references(() => posts.id, { onDelete: "cascade" }), 
+  created_at: timestamp("created_at").defaultNow().notNull(),
+});
+
+
+export const notifications = pgTable("notifications", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  user_id: integer()
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  actor_id: integer()
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  type: varchar({ length: 50 }).notNull(),
+  post_id: integer().references(() => posts.id, { onDelete: "cascade" }),
+  message: varchar({ length: 500 }).notNull(),
+  is_read: boolean().default(false).notNull(),
+  created_at: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const retweets = pgTable("retweets", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  user_id: integer()
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  post_id: integer()
+    .notNull()
+    .references(() => posts.id, { onDelete: "cascade" }),
+  created_at: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const comments = pgTable("comments", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  user_id: integer()
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  post_id: integer()
+    .notNull()
+    .references(() => posts.id, { onDelete: "cascade" }),
+  content: varchar({ length: 500 }).notNull(),
+  created_at: timestamp("created_at").defaultNow().notNull(),
+  updated_at: timestamp("updated_at").defaultNow().notNull(),
+});
+
