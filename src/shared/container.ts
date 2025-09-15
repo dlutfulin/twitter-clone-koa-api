@@ -11,6 +11,8 @@ import { PostRepositoryImpl } from "../services/post/post.repository.impl";
 import { IPostRepository } from "../services/post/post.repository";
 import { PostService } from "../services/post/post.service";
 import { PostController } from "../application/api/controllers/post.controller";
+import { S3Service } from "../services/aws/s3.service";
+import { SNSService } from "../services/aws/sns.service";
 
 container.register<IUserRepository>("IUserRepository", {
   useClass: UserRepositoryImpl,
@@ -43,5 +45,8 @@ container.register(UserController, {
 container.register(PostController, {
   useClass: PostController,
 });
+
+container.registerSingleton(S3Service);
+container.registerSingleton(SNSService);
 
 export { container };

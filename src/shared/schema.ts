@@ -14,6 +14,8 @@ export const users = pgTable("users", {
   is_active: boolean().default(true),
   updated_at: timestamp("updated_at").defaultNow().notNull(),
   created_at: timestamp("created_at").defaultNow().notNull(),
+  avatarUrl: varchar("avatar_url", { length: 500 }),
+  avatarS3Key: varchar("avatar_s3_key", { length: 500 }),
 });
 
 export const refreshTokens = pgTable("refresh_tokens", {
@@ -40,4 +42,6 @@ export const posts = pgTable("posts", {
   comments_count: integer().default(0).notNull(),
   created_at: timestamp().defaultNow().notNull(),
   updated_at: timestamp().defaultNow().notNull(),
+  mediaS3Key: varchar("media_s3_key", { length: 500 }),
+
 });

@@ -6,7 +6,6 @@ import { createPostSchema } from "../../../services/post/validators";
 @injectable()
 export class PostController {
   constructor(@inject(PostService) private postService: PostService) {}
-
   async createPost(ctx: Context) {
     try {
       const data: any = createPostSchema.parse(ctx.request.body);

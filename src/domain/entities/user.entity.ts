@@ -9,7 +9,9 @@ export class User {
     public readonly passwordHash: string,
     public readonly isActive: boolean | null,
     public readonly createdAt: Date,
-    public readonly updatedAt: Date
+    public readonly updatedAt: Date,
+    public readonly avatarUrl: string | null = null,
+    public readonly avatarS3Key: string | null = null
   ) {}
 
   static create(props: CreateUserProps): User {
@@ -92,12 +94,28 @@ export class User {
     return this.username === username.toLowerCase();
   }
 
-  toJSON() {
+    updateAvatar(avatarUrl: string, avatarS3Key: string): User {
+    return new User(
+      this.id,
+      this.email,
+      this.username,
+      this.passwordHash,
+      this.isActive,
+      this.createdAt,
+      new Date(),
+      avatarUrl,
+      avatarS3Key
+    );
+  }
+
+
+ toJSON() {
     return {
       id: this.id,
       email: this.email,
       username: this.username,
       isActive: this.isActive,
+      avatarUrl: this.avatarUrl,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
