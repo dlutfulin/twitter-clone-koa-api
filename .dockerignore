@@ -1,0 +1,22 @@
+# .dockerignore
+node_modules
+npm-debug.log
+.nyc_output
+coverage
+.git
+.gitignore
+README.md
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+Dockerfile
+docker-compose.yml
+.dockerignore
+terraform/
+*.md
+.DS_Store
+dist
+logs/
+*.log
