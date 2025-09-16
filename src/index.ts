@@ -6,7 +6,10 @@ import cors from "@koa/cors";
 import "./shared/container";
 import authRoutes from "./application/api/routes/auth.routes";
 import userRoutes from "./application/api/routes/user.routes";
+import postRoutes from "./application/api/routes/post.routes";
 import { getDb } from "./shared/drizzle-orm";
+import uploadRoutes from "./application/api/routes/upload.routes";
+import likeRoutes from "./application/api/routes/like.routes";
 
 async function bootstrap() {
   dotenv.config();
@@ -46,6 +49,12 @@ async function bootstrap() {
   app.use(authRoutes.allowedMethods());
   app.use(userRoutes.routes());
   app.use(userRoutes.allowedMethods());
+  app.use(postRoutes.routes());
+  app.use(postRoutes.allowedMethods());
+  app.use(uploadRoutes.routes());
+  app.use(uploadRoutes.allowedMethods());
+  app.use(likeRoutes.routes());
+  app.use(likeRoutes.allowedMethods());
 
   app.use(async (ctx, next) => {
     if (ctx.path === "/health") {
