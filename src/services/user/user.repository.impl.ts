@@ -23,7 +23,9 @@ export class UserRepositoryImpl implements IUserRepository {
       row.password,
       row.is_active,
       row.created_at,
-      row.updated_at
+      row.updated_at,
+      row.avatarUrl,
+      row.avatarS3Key
     );
   }
 
@@ -45,10 +47,11 @@ export class UserRepositoryImpl implements IUserRepository {
       row.password,
       row.is_active,
       row.created_at,
-      row.updated_at
+      row.updated_at,
+      row.avatarUrl,
+      row.avatarS3Key
     );
   }
-
   async save(user: User): Promise<User> {
     const db = await getDb();
     const [row] = await db
@@ -57,8 +60,12 @@ export class UserRepositoryImpl implements IUserRepository {
         email: user.email,
         username: user.username,
         password: user.passwordHash,
+        is_active: user.isActive,
+        avatarUrl: user.avatarUrl,
+        avatarS3Key: user.avatarS3Key,
       })
       .returning();
+
     return new User(
       row.id,
       row.email,
@@ -66,7 +73,9 @@ export class UserRepositoryImpl implements IUserRepository {
       row.password,
       row.is_active,
       row.created_at,
-      row.updated_at
+      row.updated_at,
+      row.avatarUrl,
+      row.avatarS3Key
     );
   }
 
@@ -83,6 +92,8 @@ export class UserRepositoryImpl implements IUserRepository {
         email: user.email,
         username: user.username,
         password: user.passwordHash,
+        avatarUrl: user.avatarUrl,
+        avatarS3Key: user.avatarS3Key,
       })
       .where(eq(users.id, user.id))
       .returning();
@@ -94,7 +105,9 @@ export class UserRepositoryImpl implements IUserRepository {
       row.password,
       row.is_active,
       row.created_at,
-      row.updated_at
+      row.updated_at,
+      row.avatarUrl,
+      row.avatarS3Key
     );
   }
 
@@ -129,7 +142,9 @@ export class UserRepositoryImpl implements IUserRepository {
           row.password,
           row.is_active,
           row.created_at,
-          row.updated_at
+          row.updated_at,
+          row.avatarUrl,
+          row.avatarS3Key
         )
     );
   }
@@ -154,7 +169,9 @@ export class UserRepositoryImpl implements IUserRepository {
       row.password,
       row.is_active,
       row.created_at,
-      row.updated_at
+      row.updated_at,
+      row.avatarUrl,
+      row.avatarS3Key
     );
   }
 }

@@ -1,7 +1,11 @@
 {
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.887.0",
+    "@aws-sdk/client-sns": "^3.887.0",
+    "@aws-sdk/s3-request-presigner": "^3.887.0",
     "@koa/cors": "^5.0.0",
     "@koa/router": "^14.0.0",
+    "@types/multer": "^2.0.0",
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.4",
@@ -9,6 +13,7 @@
     "koa": "^3.0.1",
     "koa-bodyparser": "^4.4.1",
     "koa-router": "^13.1.1",
+    "multer": "^2.0.2",
     "pg": "^8.16.3",
     "pg-core": "^0.1.15",
     "postgres": "^3.4.7",

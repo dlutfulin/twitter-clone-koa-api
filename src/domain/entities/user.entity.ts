@@ -1,4 +1,3 @@
-import { UserEmail } from "../../services/user/value-objects/user.email.vo";
 import { Username } from "../../services/user/value-objects/username.vo";
 import { CreateUserProps } from "../types/user.types";
 
@@ -10,11 +9,13 @@ export class User {
     public readonly passwordHash: string,
     public readonly isActive: boolean | null,
     public readonly createdAt: Date,
-    public readonly updatedAt: Date
+    public readonly updatedAt: Date,
+    public readonly avatarUrl: string | null = null,
+    public readonly avatarS3Key: string | null = null
   ) {}
 
   static create(props: CreateUserProps): User {
-    UserEmail.validate(props.email);
+    // UserEmail.validate(props.email);
     Username.validate(props.username);
 
     const now = new Date();
@@ -93,7 +94,22 @@ export class User {
     return this.username === username.toLowerCase();
   }
 
-  toJSON() {
+    updateAvatar(avatar_url: string, avatar_s3_key: string): User {
+    return new User(
+      this.id,
+      this.email,
+      this.username,
+      this.passwordHash,
+      this.isActive,
+      this.createdAt,
+      new Date(),
+      avatar_url,
+      avatar_s3_key
+    );
+  }
+
+
+ toJSON() {
     return {
       id: this.id,
       email: this.email,
@@ -101,6 +117,8 @@ export class User {
       isActive: this.isActive,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      avatarUrl: this.avatarUrl,
+      avatarS3Key: this.avatarS3Key
     };
   }
 }

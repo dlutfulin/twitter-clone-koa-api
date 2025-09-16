@@ -21,4 +21,6 @@ export interface UserProps {
     isActive: boolean;
     createdAt: Date;
     updatedAt: Date;
+    avatarUrl?: string;
+    avatarS3Key?: string;
   }
